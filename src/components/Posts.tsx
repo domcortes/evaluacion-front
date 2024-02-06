@@ -38,6 +38,6 @@ const PostTitle = () => {
 };
 
 const postFilters = [
-    <TextInput source="q" label="Search" alwaysOn />,
+    <TextInput source="q" label="Buscar" alwaysOn />,
     <ReferenceInput source="userId" label="User" reference="users" />,
 ];
