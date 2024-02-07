@@ -5,9 +5,13 @@ import { UserCreate, UserList } from "./components/User";
 import PostIcon from "@mui/icons-material/Book";
 import UserIcon from "@mui/icons-material/Group";
 import { Dashboard } from "./components/Dashboard";
+import { authProvider } from "./providers/authProvider";
 
 export const App = () => (
-  <Admin dataProvider={dataProvider(import.meta.env.VITE_REACT_APP_LARAVEL_SERVER_URL)} dashboard={Dashboard}>
+  <Admin 
+    dataProvider={dataProvider(import.meta.env.VITE_REACT_APP_LARAVEL_SERVER_URL)} 
+    authProvider={authProvider}
+    dashboard={Dashboard}>
     <Resource name="posts" list={PostList} edit={PostEdit} create={PostCreate} icon={PostIcon} />
     <Resource name="users" list={UserList} create={UserCreate} show={ShowGuesser} recordRepresentation="name" icon={UserIcon} />
   </Admin>
