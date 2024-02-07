@@ -3,8 +3,7 @@ import { List, Datagrid, TextField, ReferenceField, Edit, SimpleForm, ReferenceI
 export const PostList = () => (
     <List filters={postFilters}>
         <Datagrid>
-            <ReferenceField source="userId" reference="users" link="show" />
-            <TextField source="id" />
+            <ReferenceField source="user_id" reference="users" link="show" />
             <TextField source="title" />
             <TextField source="body" />
         </Datagrid>
@@ -14,10 +13,9 @@ export const PostList = () => (
 export const PostEdit = () => (
     <Edit title={<PostTitle />}>
         <SimpleForm>
-            <ReferenceInput source="userId" reference="users" />
-            <TextInput source="id" />
-            <TextInput source="title" />
-            <TextInput source="body" />
+            <ReferenceInput source="userId" reference="users" isRequired/>
+            <TextInput source="title" isRequired/>
+            <TextInput source="body" isRequired/>
         </SimpleForm>
     </Edit>
 )

@@ -1,4 +1,9 @@
-import { List, Datagrid, TextField, EmailField, TextInput, ReferenceInput, SimpleForm, Create, PasswordInput, DateField } from "react-admin";
+import { List, Datagrid, TextField, EmailField, TextInput, ReferenceInput, SimpleForm, Create, PasswordInput, SelectInput } from "react-admin";
+const roles = [
+    { id: 'administrador', name: 'administrador' },
+    { id: 'editor', name: 'editor' },
+    { id: 'invitado', name: 'invitado' },
+];
 
 export const UserList = () => (
     <List filters={userFilters}>
@@ -6,8 +11,7 @@ export const UserList = () => (
             <TextField source="id" />
             <TextField source="name" />
             <EmailField source="email" />
-            <DateField source="created_at" label="Created At" />
-            <DateField source="updated_at" label="Updated At" />
+            <TextField source="role" />
         </Datagrid>
     </List>
 );
@@ -18,6 +22,7 @@ export const UserCreate = () => (
             <TextInput source="name" />
             <TextInput source="email" />
             <PasswordInput source="password" />
+            <SelectInput source="role" choices={roles} label="Selecciona un rol" />
         </SimpleForm>
     </Create>
 )
