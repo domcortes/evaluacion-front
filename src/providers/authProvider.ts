@@ -1,3 +1,4 @@
+import { jwtDecode } from "jwt-decode";
 import { AuthProvider } from "react-admin";
 
 export const authProvider: AuthProvider = {
@@ -35,5 +36,34 @@ export const authProvider: AuthProvider = {
             ? Promise.resolve()
             : Promise.reject();
     },
-    getPermissions: () => Promise.resolve(),
+    getPermissions: () => {
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            return Promise.reject();
+        }
+
+        try {
+            const decodedToken = jwtDecode(token);
+            const userRole = decodedToken.role;
+
+            const permissions = mapUserRoleToPermissions(userRole);
+            return Promise.resolve(permissions);
+        } catch (error) {
+            console.error('Error decoding token:', error);
+            return Promise.reject('Invalid token');
+        }
+    },
 };
+
+const mapUserRoleToPermissions = (userRole: any) => {
+    switch (userRole) {
+        case 'administrador':
+            return ['admin'];
+        case 'invitado':
+            return ['read', 'export'];
+        default:
+            return [];
+    }
+};
+
