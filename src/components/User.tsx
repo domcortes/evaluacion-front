@@ -1,4 +1,4 @@
-import { List, Datagrid, TextField, EmailField, TextInput, ReferenceInput, SimpleForm, Create, PasswordInput, SelectInput } from "react-admin";
+import { List, Datagrid, TextField, EmailField, TextInput, ReferenceInput, SimpleForm, Create, PasswordInput, SelectInput, Show, SimpleShowLayout, useRecordContext } from "react-admin";
 const roles = [
     { id: 'administrador', name: 'administrador' },
     { id: 'editor', name: 'editor' },
@@ -7,7 +7,7 @@ const roles = [
 
 export const UserList = () => (
     <List filters={userFilters}>
-        <Datagrid>
+        <Datagrid rowClick="show">
             <TextField source="id" />
             <TextField source="name" />
             <EmailField source="email" />
@@ -26,6 +26,21 @@ export const UserCreate = () => (
         </SimpleForm>
     </Create>
 )
+
+export const UserShow = () => (
+    <Show title={<UserTitle/>}>
+        <SimpleShowLayout>
+            <TextField source="name" label="Nombre usuario"/>
+            <TextField source="email" label="Email"/>
+            <TextField source="role" label="Rol"/>
+        </SimpleShowLayout>
+    </Show>
+)
+
+const UserTitle = () => {
+    const record = useRecordContext();
+    return <span>Usuario <strong>{record ? `${record.name}` : ''}</strong></span>;
+};
 
 const userFilters = [
     <TextInput source="q" label="Buscar" alwaysOn />,

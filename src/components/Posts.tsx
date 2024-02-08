@@ -1,11 +1,12 @@
-import { List, Datagrid, TextField, ReferenceField, Edit, SimpleForm, ReferenceInput, TextInput, Create, useRecordContext } from "react-admin";
+import { RichTextInput } from "ra-input-rich-text";
+import { List, Datagrid, TextField, ReferenceField, Edit, SimpleForm, ReferenceInput, TextInput, Create, useRecordContext, RichTextField } from "react-admin";
 
 export const PostList = () => (
     <List filters={postFilters}>
-        <Datagrid>
+        <Datagrid rowClick="edit">
             <ReferenceField source="user_id" reference="users" link="show" />
             <TextField source="title" />
-            <TextField source="body" />
+            <RichTextField source="body" />
         </Datagrid>
     </List>
 );
@@ -13,9 +14,8 @@ export const PostList = () => (
 export const PostEdit = () => (
     <Edit title={<PostTitle />}>
         <SimpleForm>
-            <ReferenceInput source="userId" reference="users" isRequired/>
             <TextInput source="title" isRequired/>
-            <TextInput source="body" isRequired/>
+            <RichTextInput source="body" label="Contenido" />
         </SimpleForm>
     </Edit>
 )
@@ -25,14 +25,14 @@ export const PostCreate = () => (
         <SimpleForm>
             <ReferenceInput source="userId" reference="users" />
             <TextInput source="title" />
-            <TextInput source="body" multiline rows={5} />
+            <RichTextInput source="body" label="Contenido" />
         </SimpleForm>
     </Create>
 )
 
 const PostTitle = () => {
     const record = useRecordContext();
-    return <span>Post {record ? `"${record.title}"` : ''}</span>;
+    return <span>Edicion de post {record ? `"${record.title}"` : ''}</span>;
 };
 
 const postFilters = [
