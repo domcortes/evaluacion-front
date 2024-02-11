@@ -1,6 +1,5 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CircularProgress, Typography } from '@mui/material';
+import { CircularProgress, Typography } from '@mui/material';
 import { useGetList } from 'react-admin';
 
 export const Dashboard = () => {
@@ -9,12 +8,11 @@ export const Dashboard = () => {
     return (
         <div className="row">
             <div className="col-md-12">
-                <Card className="card">
-                    <CardHeader className="bg-dark text-white" title="Bienvenido!" />
-                    <CardContent className="card-body">
+                <div className="card">
+                    <div className="card-header bg-dark text-white">
                         <div className="row">
                             <div className="col-md-6">
-                                <Typography variant="h5" gutterBottom>Últimos Posts</Typography>
+                                <span className="card-title">Ultimos posts</span>
                             </div>
                             <div className="col-md-6 text-end">
                                 <div className="btn-group">
@@ -23,6 +21,8 @@ export const Dashboard = () => {
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div className="card-body">
                         {loading && <CircularProgress />}
                         {error && <Typography variant="body1" color="error">Error al cargar los datos.</Typography>}
                         <div className="row">
@@ -30,19 +30,31 @@ export const Dashboard = () => {
                                 {posts && (
                                     <div>
                                         {posts.map(post => (
-                                            <Card key={post.id} className="card mb-3">
-                                                <CardHeader className="bg-primary text-white" title={post.title} />
-                                                <CardContent className="card-body">
+                                            <div className="card mb-3">
+                                                <div className="card-header bg-dark text-white">
+                                                    <div className="row">
+                                                        <div className="col-md-6">
+                                                            {post.title}
+                                                        </div>
+                                                        <div className="col-md-6 text-end">
+                                                            <div className="btn-group">
+                                                                <Link to={`/posts/${post.id}/show`} className="btn btn-sm btn-outline-primary">Ver mas</Link>
+                                                                <Link to={`/posts/${post.id}/show/1`} className="btn btn-sm btn-outline-success">Comentar</Link>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="card-body">
                                                     <Typography variant="body1" dangerouslySetInnerHTML={{ __html: post.body }} />
-                                                </CardContent>
-                                            </Card>
+                                                </div>
+                                            </div>
                                         ))}
                                     </div>
                                 )}
                             </div>
                         </div>
-                    </CardContent>
-                </Card>
+                    </div>
+                </div>
             </div>
         </div>
     );

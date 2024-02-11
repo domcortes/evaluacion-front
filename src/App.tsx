@@ -1,14 +1,16 @@
 import { useEffect } from 'react';
 import { Admin, Resource } from 'react-admin';
 import { dataProvider } from './providers/dataProvider';
-import { PostCreate, PostEdit, PostList } from './components/Posts';
+import { PostCreate, PostEdit, PostList, PostShow } from './components/Posts';
 import { UserCreate, UserList, UserShow } from './components/User';
 import PostIcon from '@mui/icons-material/Book';
 import UserIcon from '@mui/icons-material/Group';
+import Comment from '@mui/icons-material/Comment';
 import CategoryOutlined from '@mui/icons-material/CategoryOutlined';
 import { Dashboard } from './components/Dashboard';
 import { authProvider } from './providers/authProvider';
 import { CategoryCreate, CategoryEdit, CategoryList } from './components/Categories';
+import { CommentList, FullCommentList } from './components/Comments';
 
 export const App = () => {
   useEffect(() => {
@@ -36,7 +38,8 @@ export const App = () => {
     >
       <Resource name="users" list={UserList} create={UserCreate} show={UserShow} recordRepresentation="name" icon={UserIcon} />
       <Resource name="categories" list={CategoryList} create={CategoryCreate} edit={CategoryEdit} icon={CategoryOutlined} />
-      <Resource name="posts" list={PostList} create={PostCreate} edit={PostEdit} icon={PostIcon} />
+      <Resource name="posts" show={PostShow} list={PostList} create={PostCreate} edit={PostEdit} icon={PostIcon} />
+      <Resource name="comments" list={FullCommentList} icon={Comment} />
     </Admin>
   );
 };
