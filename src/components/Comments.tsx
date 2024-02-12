@@ -1,17 +1,25 @@
-import { Datagrid, FunctionField, List, ReferenceField, TextField } from "react-admin";
+import { useEffect, useState } from "react";
+import { Datagrid, List, TextField } from "react-admin";
 
-export const FullCommentList = () => {
-    return (
-        <List>
+export const CommentsList = () => {
+    const [postId, setPostId] = useState('');
+
+    useEffect(() => {
+        const postIdFromStorage = localStorage.getItem('postId');
+        console.log(postIdFromStorage);
+        setPostId(postIdFromStorage);
+    }, []);
+
+    if (!postId) {
+        return <p>Cargando comentarios...</p>;
+    }
+
+    return postId ? (
+        <List filter={{ posts_id: postId }}>
             <Datagrid>
-                <ReferenceField source="user_id" reference="users" label="Comentado por">
-                    <FunctionField render={(record: { title: any; }) => record && `${record.name}`} />
-                </ReferenceField>
-                <ReferenceField source="posts_id" reference="posts" label="Comentado por">
-                    <FunctionField render={(record: { title: any; }) => record && `${record.title}`} />
-                </ReferenceField>
                 <TextField source="comment" />
             </Datagrid>
         </List>
-    );
+    ) : null;
+
 };
