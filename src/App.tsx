@@ -9,6 +9,7 @@ import CategoryOutlined from '@mui/icons-material/CategoryOutlined';
 import { Dashboard } from './components/Dashboard';
 import { authProvider } from './providers/authProvider';
 import { CategoryCreate, CategoryEdit, CategoryList } from './components/Categories';
+import { CommentsCreate } from './components/Comments';
 
 export const App = () => {
   useEffect(() => {
@@ -37,6 +38,7 @@ export const App = () => {
       <Resource name="users" list={UserList} create={UserCreate} show={UserShow} recordRepresentation="name" icon={UserIcon} />
       <Resource name="categories" list={CategoryList} create={CategoryCreate} edit={CategoryEdit} icon={CategoryOutlined} />
       <Resource name="posts" show={PostShow} list={PostList} create={PostCreate} edit={PostEdit} icon={PostIcon} />
+      <Resource name="comments" create={CommentsCreate} />
     </Admin>
   );
 };

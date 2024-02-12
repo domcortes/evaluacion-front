@@ -1,10 +1,8 @@
 import { RichTextInput } from "ra-input-rich-text";
-import { Resource } from 'react-admin';
-import { List, Datagrid, TextField, ReferenceField, Edit, SimpleForm, ReferenceInput, TextInput, Create, useRecordContext, RichTextField, Show, TopToolbar, EditButton, TabbedShowLayout, SelectInput } from "react-admin";
-import { Link } from "react-router-dom";
-import { List as ListIcon } from "@mui/icons-material";
+import { CreateButton, Tab } from 'react-admin';
+import { List, Datagrid, TextField, ReferenceField, Edit, SimpleForm, ReferenceInput, TextInput, Create, useRecordContext, RichTextField, Show, TabbedShowLayout, SelectInput } from "react-admin";
 import { useNavigate } from 'react-router-dom';
-import { CommentsList } from "./Comments";
+import { CommentsCreate, CommentsList } from "./Comments";
 
 export const PostList = (props) => {
     const navigate = useNavigate();
@@ -50,23 +48,15 @@ export const PostCreate = () => (
 
 export const PostShow = (props) => {
     return (
-        <Show {...props}>
+        <Show>
             <TabbedShowLayout>
-                <TabbedShowLayout.Tab label="contenido">
-                    {/* Contenido del post */}
+                <Tab label="contenido">
                     <TextField label="Título" source="title" />
                     <RichTextField label="Contenido" source="body" />
-                </TabbedShowLayout.Tab>
-                <TabbedShowLayout.Tab label="comentarios">
-                    <div className="card">
-                        <div className="card-header bg-primary text-center text-white">
-                            Comentarios de <strong><PostName /></strong>
-                        </div>
-                        <div className="card-body">
-                            <Resource name="comments" list={CommentsList} />
-                        </div>
-                    </div>
-                </TabbedShowLayout.Tab>
+                </Tab>
+                <Tab label="comentarios">
+                    <CommentsList />
+                </Tab>
             </TabbedShowLayout>
         </Show>
     );
@@ -77,20 +67,6 @@ const PostTitle = () => {
     const record = useRecordContext();
     return <span>Edicion de post {record ? `"${record.title}"` : ''}</span>;
 };
-
-const PostShowActions = () => (
-    <TopToolbar>
-        <div className="btn-group">
-            <EditButton className="btn" />
-            <Link to="/posts" className="btn btn-outline-primary"><ListIcon /></Link>
-        </div>
-    </TopToolbar>
-)
-
-const PostName = () => {
-    const record = useRecordContext();
-    return <span>{record ? `${record.title}` : ''}</span>;
-}
 
 const postFilters = [
     <TextInput source="q" label="Buscar" alwaysOn />,

@@ -1,25 +1,17 @@
-import { useEffect, useState } from "react";
-import { Datagrid, List, TextField } from "react-admin";
+import { Create, CreateButton, Datagrid, ReferenceManyField, SimpleForm, TextField, TextInput, Toolbar } from "react-admin";
 
-export const CommentsList = () => {
-    const [postId, setPostId] = useState('');
+export const CommentsList = () => (
+    <ReferenceManyField reference="comments" target="posts_id">
+        <Datagrid>
+            <TextField source="comment" />
+        </Datagrid>
+    </ReferenceManyField>
+);
 
-    useEffect(() => {
-        const postIdFromStorage = localStorage.getItem('postId');
-        console.log(postIdFromStorage);
-        setPostId(postIdFromStorage);
-    }, []);
-
-    if (!postId) {
-        return <p>Cargando comentarios...</p>;
-    }
-
-    return postId ? (
-        <List filter={{ posts_id: postId }}>
-            <Datagrid>
-                <TextField source="comment" />
-            </Datagrid>
-        </List>
-    ) : null;
-
-};
+export const CommentsCreate = (props) => (
+    <Create {...props}>
+        <SimpleForm>
+            <TextInput source="comment" />
+        </SimpleForm>
+    </Create>
+);

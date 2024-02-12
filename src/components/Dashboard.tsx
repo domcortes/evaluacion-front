@@ -39,7 +39,7 @@ export const Dashboard = () => {
                                                         <div className="col-md-6 text-end">
                                                             <div className="btn-group">
                                                                 <Link to={`/posts/${post.id}/show`} className="btn btn-sm btn-outline-primary">Ver mas</Link>
-                                                                <Link to={`/posts/${post.id}/show/1`} className="btn btn-sm btn-outline-success">Comentar</Link>
+                                                                <Link to={`/posts/${post.id}/show`} className="btn btn-sm btn-outline-success">Comentar</Link>
                                                             </div>
                                                         </div>
                                                     </div>
