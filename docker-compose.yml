@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  react-app:
+    image: node:latest
+    working_dir: /app
+    volumes:
+      - ./evaluacion-front:/app
+    ports:
+      - "3000:3000"
+    command: npm run dev
+    environment:
+      - VITE_REACT_APP_LARAVEL_SERVER_URL=http://127.0.0.1:8000/api
+      - VITE_REACT_APP_LARAVEL_SERVER_URL_LOGIN=http://127.0.0.1:8000/api/login
+    depends_on:
+      - laravel-app
